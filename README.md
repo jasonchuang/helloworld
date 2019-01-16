@@ -6,18 +6,14 @@ Deep Learning Hello World
  - FCN
  - digital logic
 ## 大大們
- - 李飛飛
  - Hinton
- - Cun Lee
- - Jeff Dean
+ - LeCun
+ - Bengio
 ## Toolkit
  - Caffe
  - TensorFlow
  - Pytorch
  - Keras
-## Coding
- - 幾層？
- - model summary 
 ## Demo
  - Run in docker
  
