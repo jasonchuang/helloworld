@@ -14,10 +14,6 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--input_image', type=str)
 args = parser.parse_args()
 
-def decode_base64_to_file(file_name, b64_content):
-    with open(file_name, "w") as text_file:
-        text_file.write(base64.urlsafe_b64decode(str(b64_content)))
-
 orig_filename = os.path.splitext(args.input_image)[0]
 img_b64 = base64.b64encode(open(args.input_image, "rb").read())
 instances_str = '{"myInput": {"b64":"%s"}}' % (img_b64)
@@ -28,4 +24,6 @@ prediction = predictions[0]
 #print prediction
 
 img_output_path = "%s_half.jpg" % orig_filename
-decode_base64_to_file(img_output_path, prediction['myOutput'])
+util.decode_base64_to_file(img_output_path, prediction['myOutput'])
+
+util.output_double_width_image(orig_filename)

@@ -1,8 +1,8 @@
 #!/bin/bash
 MNIST_IMAGE="6"
 MULTIPLY_FLOAT_LIST="1.0, 3.0, 5.0, 7.0"
-STR_LEN_STRING="picaaspicaas"
-NLDF_IMAGE="tank1"
+STR_LEN_STRING="picaas"
+NLDF_IMAGE="direwolf"
 IMAGE_RESIZE_FILE="jason_avatar"
 
 echo ""
@@ -22,7 +22,7 @@ case $choise in
     echo "ERROR input"
     exit -1
     ;;
-    *[!0-3]*)
+    *[!0-4]*)
     echo "ERROR input"
     exit -1
     ;;
@@ -42,12 +42,12 @@ case $choise in
 
     "3")
     time python image_resize.py --input_image "${IMAGE_RESIZE_FILE}.jpg"
-    open "${IMAGE_RESIZE_FILE}.jpg" "${IMAGE_RESIZE_FILE}_half.jpg"
+    open "${IMAGE_RESIZE_FILE}_grid.jpg"
     ;;
 
     "4")
     time python nldf.py --input_image "${NLDF_IMAGE}.jpg"
-    open "${NLDF_IMAGE}.png" "${NLDF_IMAGE}.jpg"
+    open "${NLDF_IMAGE}_grid.jpg"
     ;;
 
     *)

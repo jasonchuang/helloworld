@@ -15,10 +15,6 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--input_image', type=str)
 args = parser.parse_args()
 
-def decode_base64_to_file(file_name, b64_content):
-    with open(file_name, "w") as text_file:
-        text_file.write(base64.urlsafe_b64decode(str(b64_content)))
-
 def resize_nldf_image(orig_file_name, nldf_file_name):
     orig_img = Image.open(orig_file_name)
     orig_width, orig_height = orig_img.size
@@ -37,8 +33,10 @@ predictions = util.predict_json(PROJECT_NAME, MODEL_NAME, instances, version=MOD
 prediction = predictions[0]
 
 img_output_path = "%s.png" % prediction['keys']
-decode_base64_to_file(img_output_path, prediction['b64_output'])
+util.decode_base64_to_file(img_output_path, prediction['b64_output'])
 
 # resize manually to target image size
 resize_nldf_image(args.input_image, img_output_path)
 
+# combine into grid
+util.output_grid_image(filename)
