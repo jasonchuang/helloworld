@@ -1,6 +1,7 @@
 # from https://github.com/mogoweb/aiexamples/blob/master/tensorflow/saved_model/save_model.py
 from tensorflow.examples.tutorials.mnist import input_data
 import tensorflow as tf
+from tensorflow.python.saved_model import signature_constants
 from tensorflow.python.saved_model import tag_constants
 from tensorflow.python.saved_model.signature_def_utils_impl import predict_signature_def
 
@@ -44,5 +45,6 @@ signature = predict_signature_def(inputs={'myInput': x},
                                   outputs={'myOutput': y})
 builder.add_meta_graph_and_variables(sess=sess,
                                      tags=[tag_constants.SERVING],
-                                     signature_def_map={'predict': signature})
+                                     signature_def_map={signature_constants.DEFAULT_SERVING_SIGNATURE_DEF_KEY: signature})
+
 builder.save()
