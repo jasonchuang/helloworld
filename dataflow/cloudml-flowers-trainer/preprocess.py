@@ -59,6 +59,7 @@ TODO(b/31434218)
 
 
 import argparse
+import base64
 import csv
 import datetime
 import errno
@@ -85,6 +86,7 @@ import tensorflow as tf
 from tensorflow.contrib.slim.python.slim.nets import inception_v3 as inception
 from tensorflow.python.framework import errors
 from tensorflow.python.lib.io import file_io
+from urllib2 import urlopen
 
 slim = tf.contrib.slim
 
@@ -141,9 +143,9 @@ class ExtractLabelIdsDoFn(beam.DoFn):
 
     csv_rows_count.inc()
     uri = row[0]
-    if not uri or not uri.startswith('gs://'):
-      invalid_uri.inc()
-      return
+#    if not uri or not uri.startswith('gs://'):
+#      invalid_uri.inc()
+#      return
 
     # In a real-world system, you may want to provide a default id for labels
     # that were not in the dictionary.  In this sample, we simply skip it.
@@ -184,9 +186,8 @@ class ReadImageAndConvertToJpegDoFn(beam.DoFn):
         return file_io.FileIO(uri, mode='r')
 
     try:
-      with _open_file_read_binary(uri) as f:
-        image_bytes = f.read()
-        img = Image.open(io.BytesIO(image_bytes)).convert('RGB')
+        fd = urlopen(uri)
+        img = Image.open(fd).convert('RGB')
 
     # A variety of different calling libraries throw different exceptions here.
     # They all correspond to an unreadable file so we treat them equivalently.
@@ -199,7 +200,7 @@ class ReadImageAndConvertToJpegDoFn(beam.DoFn):
     output = io.BytesIO()
     img.save(output, Default.FORMAT)
     image_bytes = output.getvalue()
-    yield uri, label_ids, image_bytes
+    yield base64.b64encode(image_bytes)
 
 
 class EmbeddingsGraph(object):
@@ -376,14 +377,13 @@ def configure_pipeline(p, opt):
                                            beam.pvalue.AsIter(labels))
        | 'Read and convert to JPEG'
        >> beam.ParDo(ReadImageAndConvertToJpegDoFn())
-       | 'Embed and make TFExample' >> beam.ParDo(TFExampleFromImageDoFn())
+#       | 'Embed and make TFExample' >> beam.ParDo(TFExampleFromImageDoFn())
        # TODO(b/35133536): Get rid of this Map and instead use
        # coder=beam.coders.ProtoCoder(tf.train.Example) in WriteToTFRecord
        # below.
-       | 'SerializeToString' >> beam.Map(lambda x: x.SerializeToString())
+#       | 'SerializeToString' >> beam.Map(lambda x: x.SerializeToString())
        | 'Save to disk'
-       >> beam.io.WriteToTFRecord(opt.output_path,
-                                  file_name_suffix='.tfrecord.gz'))
+       >> beam.io.WriteToText(opt.output_path))
 
 
 def run(in_args=None):
