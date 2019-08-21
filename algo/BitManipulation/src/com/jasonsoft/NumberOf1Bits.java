@@ -2,7 +2,16 @@ package com.jasonsoft;
 
 public class NumberOf1Bits {
 
-    int numberOf1Bits(int n) {
+    /*
+        Write a function that takes an unsigned integer and return the number of '1' bits it has
+        (also known as the Hamming weight).
+
+        Input: 00000000000000000000000000001011
+        Output: 3
+        Explanation: The input binary string 00000000000000000000000000001011 has a total of three '1' bits.
+     */
+
+    int hammingWeight(int n) {
         int count = 0;
 
         System.out.println("n is:" + n);
@@ -19,7 +28,7 @@ public class NumberOf1Bits {
     }
 
 
-    int numberOf1Bits2(int n) {
+    int hammingWeight2(int n) {
         int count = 0;
         while (n != 0) {
             count++;
@@ -34,6 +43,9 @@ public class NumberOf1Bits {
         return (n >> k) & 1;
     }
 
+    // setBit => n | (1 << k)
+    // clearBit => n & ~(1 << k)
+
     int hammingDistance(int x, int y) {
         /*
         int count = 0;
@@ -46,6 +58,6 @@ public class NumberOf1Bits {
             }
         }
         */
-        return numberOf1Bits(x ^ y);
+        return hammingWeight(x ^ y);
     }
 }
