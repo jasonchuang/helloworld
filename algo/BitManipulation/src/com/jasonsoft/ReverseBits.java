@@ -12,6 +12,12 @@ public class ReverseBits {
             n >>>= 1;
         }
 
+        // reverse integer
+        // while (xxx)
+        // if abs(x) * 10 > Integer.MAX, then abort
+        // result = result * 10 + xxxx
+        // x /= 10;
+
         return result;
     }
 }
