@@ -3,8 +3,10 @@
 
 | #  | Category | Java | Python |
 | ------------- | ------------- | ------------- | ------------- |
+| 20 | [Stack](https://github.com/jasonchuang/helloworld/tree/master/algo/Stack) | [ValidParentheses.java](https://github.com/jasonchuang/helloworld/blob/master/algo/Stack/src/com/jasonsoft/ValidParentheses.java)  |   |
 | 34 | [BinarySearch](https://github.com/jasonchuang/helloworld/tree/master/algo/BinarySearch) | [FindFirstAndLastPositionOfElementInSortedArray.java](https://github.com/jasonchuang/helloworld/blob/master/algo/BinarySearch/src/com/jasonsoft/FindFirstAndLastPositionOfElementInSortedArray.java)  |   | 
 | 35 | [BinarySearch](https://github.com/jasonchuang/helloworld/tree/master/algo/BinarySearch) | [SearchInsertPosition.java](https://github.com/jasonchuang/helloworld/blob/master/algo/BinarySearch/src/com/jasonsoft/SearchInsertPosition.java)  |   | 
+| 125 | [Strings](https://github.com/jasonchuang/helloworld/tree/master/algo/Strings) | [ValidPalindrome.java](https://github.com/jasonchuang/helloworld/blob/master/algo/Strings/src/com/jasonsoft/ValidPalindrome.java)  |   |
 | 136 | [BitManipulation](https://github.com/jasonchuang/helloworld/tree/master/algo/BitManipulation) | [SingleNumber.java](https://github.com/jasonchuang/helloworld/blob/master/algo/BitManipulation/src/com/jasonsoft/SingleNumber.java)  |   | 
 | 167 | [BinarySearch](https://github.com/jasonchuang/helloworld/tree/master/algo/BinarySearch) | [TwoSumII.java](https://github.com/jasonchuang/helloworld/blob/master/algo/BinarySearch/src/com/jasonsoft/TwoSumII.java)  |   | 
 | 190 | [BitManipulation](https://github.com/jasonchuang/helloworld/tree/master/algo/BitManipulation) | [ReverseBits.java](https://github.com/jasonchuang/helloworld/blob/master/algo/BitManipulation/src/com/jasonsoft/ReverseBits.java)  |   | 
