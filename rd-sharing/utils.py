@@ -6,6 +6,7 @@ import json
 import os
 import urllib.request
 
+from bisect import bisect_left
 from googleapiclient import errors
 from multiprocessing import Pool
 from parse import parse
@@ -15,7 +16,7 @@ def download_image(row):
     r = parse("{url},{file_path}", row)
     try:
         urllib.request.urlretrieve(r['url'], r['file_path'])
-    except (urllib.error.HTTPError, urllib.error.URLError) as e:
+    except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as e:
         print('file_path:{} with exception:{}'.format(r['file_path'], e))
 
 def download_images_to_folder(input_csv, output_folder):
@@ -111,4 +112,18 @@ def make_mlengine_job_request(job_id, input_paths, output_path, model_name, mode
         print('state : {}'.format(response['state']))
     except errors.HttpError as err:
         print(err)
+
+
+def sort_list(a):
+    return sorted(a)
+
+# make sure your list 'a' is sorted!!!
+def binary_search(a, x):
+    # Locate the insertion point for x in a to maintain sorted order.
+    # If x is already present in a, the insertion point will be before (to the left of) any existing entries
+    index = bisect_left(a, x)
+    if index < len(a) and a[index] == x:
+        return True, index
+
+    return False, index
 
